@@ -28,6 +28,4 @@ Se planea realizar mejoras adicionales en el proyecto, pero estos se llevarán a
 ## Contribuciones
 
 Las contribuciones al proyecto son bienvenidas y valoradas. Si tienes alguna sugerencia, informe de errores o solicitud de características, no dudes en compartirla a través de problemas (issues) en GitHub. Agradecemos un entorno de colaboración basado en el respeto mutuo y la consideración hacia todas las ideas y opiniones.
-## Contribuciones
 
-Las contribuciones al proyecto son bienvenidas. Siéntase libre de enviar sugerencias, informes de errores o solicitudes de características a través de problemas (issues) en GitHub.

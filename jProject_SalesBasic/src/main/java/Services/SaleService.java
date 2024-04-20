@@ -33,9 +33,9 @@ public class SaleService {
     public void processSale(DtoSales dtoSale, List<DtoSalesDetails> dtoSaleDetails) throws SQLException {
     int saleID = saleCreationService.createSale(dtoSale);
     for (DtoSalesDetails detailDTO : dtoSaleDetails) {
-        detailDTO.setSaleID(saleID); // Asegúrate de que cada detalle de venta esté asociado con la venta correcta
+        detailDTO.setSaleID(saleID); 
         saleDetailService.addSaleDetail(detailDTO);
-        productStockService.updateProductStock(detailDTO); // Corrección aquí
+        productStockService.updateProductStock(detailDTO);
     }
 }
     

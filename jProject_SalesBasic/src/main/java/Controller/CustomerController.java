@@ -3,6 +3,7 @@ package Controller;
 import Objects.DtoCustomer;
 import Queries.QCustomer;
 import Utils.CustomerValidation;
+import static Utils.CustomerValidation.updateisDniExists;
 import Views.Maintenances.Customer.Customers;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -43,9 +44,13 @@ public CustomerController() {
     }
     
 
-    // Método para actualizar un cliente existente
-    public int updateCustomer(DtoCustomer customerToUpdate) {
-        return model.update(customerToUpdate);
+    // Método para actualizar un cliente existente  
+    public int updateCustomer(DtoCustomer customerToUpdate, String currentDni) {
+    if (updateisDniExists(currentDni, customerToUpdate.getDni())) {
+        JOptionPane.showMessageDialog(null, "El DNI ya existe. No se puede actualizar a este DNI.", "Error", JOptionPane.ERROR_MESSAGE);
+        return -1;
+    }        
+    return model.update(customerToUpdate);
     }
 
     // Método para eliminar un cliente por ID

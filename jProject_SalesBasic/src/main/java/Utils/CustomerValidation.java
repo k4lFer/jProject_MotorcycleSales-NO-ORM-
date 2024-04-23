@@ -12,5 +12,14 @@ public class CustomerValidation {
         QCustomer qCustomer = new QCustomer();
         DtoCustomer dtoCustomer = qCustomer.getByDni(dni);
         return dtoCustomer != null;       
-    }    
+    }
+    
+    public static boolean updateisDniExists(String currentDni, String newDni){
+        if (currentDni.equals(newDni)) {
+            return false; 
+        }
+        QCustomer qCustomer = new QCustomer();
+        DtoCustomer dtoCustomer = qCustomer.getByDni(newDni);
+        return dtoCustomer != null; 
+    }
 }

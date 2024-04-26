@@ -1,7 +1,8 @@
 package Views.Maintenances.Customer;
 
 import Controller.CustomerController;
-import Objects.DtoCustomer;
+import Controller.ServiceObject.Customers.SoCustomers;
+import DTOs.Objects.DtoCustomer;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -13,12 +14,12 @@ public class CustomerUpdate extends java.awt.Dialog {
     private CustomerController controller;
     private int ID;
     private String currentDni;
-    private Customers form;
+    private CustomersMain form;
 
     /**
      * Creates new form CustomerEdit
      */
-    public CustomerUpdate(java.awt.Frame parent, boolean modal, CustomerController controller, Customers form) {
+    public CustomerUpdate(java.awt.Frame parent, boolean modal, CustomerController controller,  CustomersMain form) {
         super(parent, modal);
         this.ID = ID;
         this.form = form;
@@ -38,12 +39,12 @@ public class CustomerUpdate extends java.awt.Dialog {
         ID = customerID;
     }
     public void updateCustomer(){
-        if (jTextField_dni.getText().isEmpty() || jTextField_firstName.getText().isEmpty() ||
+        /*if (jTextField_dni.getText().isEmpty() || jTextField_firstName.getText().isEmpty() ||
             jTextField_lastName.getText().isEmpty() || jTextField_Address.getText().isEmpty() ||
             jTextField_phone.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Todos los campos deben estar llenos.", "Error", JOptionPane.ERROR_MESSAGE);
             return; 
-        } 
+        } */
         
         String dni = jTextField_dni.getText();
         String firstName = jTextField_firstName.getText();
@@ -52,24 +53,22 @@ public class CustomerUpdate extends java.awt.Dialog {
         String phone = jTextField_phone.getText();
  
         String currentDni = "";
-        DtoCustomer customerToUpdate = new DtoCustomer();
-            customerToUpdate.setDni(dni);
-            customerToUpdate.setFirstName(firstName);
-            customerToUpdate.setLastName(lastName);
-            customerToUpdate.setAddress(address);
-            customerToUpdate.setPhone(phone);
-            customerToUpdate.setCustomerID(ID);
+        SoCustomers customerToUpdate = new SoCustomers();
+        //customerToUpdate.dtoCustomer = new DtoCustomer();
+            customerToUpdate.dtoCustomer.setDni(dni);
+            customerToUpdate.dtoCustomer.setFirstName(firstName);
+            customerToUpdate.dtoCustomer.setLastName(lastName);
+            customerToUpdate.dtoCustomer.setAddress(address);
+            customerToUpdate.dtoCustomer.setPhone(phone);
+            customerToUpdate.dtoCustomer.setCustomerID(ID);
              
         int result = controller.updateCustomer(customerToUpdate, this.currentDni);
-  
+        
         if (result > 0) {
-                JOptionPane.showMessageDialog(null, "Cliente actualizado exitosamente.");
                 List<DtoCustomer> customers = controller.loadCustomers();
                 form.updateTable(customers);
                 dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo actualizar el cliente.");
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -208,10 +207,10 @@ public class CustomerUpdate extends java.awt.Dialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+   // public static void main(String args[]) {
+        //java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Customers customersForm = new Customers();
+                CustomersMain customersForm = new CustomersMain();
                 CustomerController controller = new CustomerController();
                 CustomerUpdate dialog = new CustomerUpdate(new java.awt.Frame(), true, controller, customersForm);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -221,8 +220,8 @@ public class CustomerUpdate extends java.awt.Dialog {
                 });
                 dialog.setVisible(true);
             }
-        });
-    }
+        //});
+   // }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

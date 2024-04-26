@@ -1,7 +1,7 @@
 package Queries;
 
 import Connection.ConnectionContext;
-import Objects.DtoProducts;
+import DTOs.Objects.DtoProducts;
 import Repository.Objects.RepoProducts;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

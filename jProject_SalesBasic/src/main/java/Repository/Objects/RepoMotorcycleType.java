@@ -1,6 +1,6 @@
 package Repository.Objects;
 
-import Objects.DtoMotorcycleType;
+import DTOs.Objects.DtoMotorcycleType;
 import Repository.RepoGeneric;
 import java.util.List;
 

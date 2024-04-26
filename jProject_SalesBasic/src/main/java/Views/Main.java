@@ -1,8 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Views;
+
+import Views.Maintenances.Customer.CustomersMain;
+import Views.Maintenances.Product.ProductsMain;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 /**
  *
@@ -15,6 +16,8 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        //this.setExtendedState(MAXIMIZED_BOTH);
+
     }
 
     /**
@@ -27,61 +30,91 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jBttn_viewCustomers = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jDesktopPane_Views = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setExtendedState(6);
+        setLocationByPlatform(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        jBttn_viewCustomers.setText("Customers");
+        jBttn_viewCustomers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBttn_viewCustomersActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Products");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBttn_viewCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jBttn_viewCustomers)
+                .addGap(67, 67, 67)
+                .addComponent(jButton1))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 140, 430));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 120, 460));
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 100));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 980, Short.MAX_VALUE)
+        jDesktopPane_Views.setBackground(new java.awt.Color(102, 102, 102));
+        jDesktopPane_Views.setForeground(new java.awt.Color(102, 102, 102));
+        jDesktopPane_Views.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout jDesktopPane_ViewsLayout = new javax.swing.GroupLayout(jDesktopPane_Views);
+        jDesktopPane_Views.setLayout(jDesktopPane_ViewsLayout);
+        jDesktopPane_ViewsLayout.setHorizontalGroup(
+            jDesktopPane_ViewsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 940, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 100));
-
-        jDesktopPane1.setBackground(new java.awt.Color(102, 102, 102));
-        jDesktopPane1.setForeground(new java.awt.Color(102, 102, 102));
-        jDesktopPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+        jDesktopPane_ViewsLayout.setVerticalGroup(
+            jDesktopPane_ViewsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 460, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 840, 430));
+        getContentPane().add(jDesktopPane_Views, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 940, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBttn_viewCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttn_viewCustomersActionPerformed
+        CustomersMain internalFrame = new CustomersMain();
+        jDesktopPane_Views.add(internalFrame);
+        internalFrame.setSize(jDesktopPane_Views.getSize()); // Establecemos el tamaño del internal frame igual al del JDesktopPane
+        internalFrame.setVisible(true);
+    }//GEN-LAST:event_jBttn_viewCustomersActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        ProductsMain internalFrame = new ProductsMain();
+        jDesktopPane_Views.add(internalFrame);
+        internalFrame.setSize(jDesktopPane_Views.getSize()); // Establecemos el tamaño del internal frame igual al del JDesktopPane
+        internalFrame.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,7 +152,9 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JButton jBttn_viewCustomers;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JDesktopPane jDesktopPane_Views;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

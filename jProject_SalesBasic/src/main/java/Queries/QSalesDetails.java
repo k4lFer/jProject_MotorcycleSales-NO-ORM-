@@ -1,7 +1,7 @@
 package Queries;
 
 import Connection.ConnectionContext;
-import Objects.DtoSalesDetails;
+import DTOs.Objects.DtoSalesDetails;
 import Repository.Objects.RepoSalesDetails;
 import java.util.List;
 import java.sql.Connection;

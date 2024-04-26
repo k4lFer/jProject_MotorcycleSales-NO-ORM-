@@ -2,7 +2,7 @@ package Queries;
 
 import Connection.ConnectionContext;
 import java.sql.Connection;
-import Objects.DtoMotorcycleType;
+import DTOs.Objects.DtoMotorcycleType;
 import Repository.Objects.RepoMotorcycleType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

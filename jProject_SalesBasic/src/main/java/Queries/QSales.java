@@ -1,7 +1,7 @@
 package Queries;
 
 import Connection.ConnectionContext;
-import Objects.DtoSales;
+import DTOs.Objects.DtoSales;
 import Repository.Objects.RepoSales;
 import java.sql.SQLException;
 import java.util.ArrayList;

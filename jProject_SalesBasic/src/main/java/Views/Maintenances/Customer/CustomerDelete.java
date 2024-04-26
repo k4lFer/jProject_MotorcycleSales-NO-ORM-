@@ -1,7 +1,7 @@
 package Views.Maintenances.Customer;
 
 import Controller.CustomerController;
-import Objects.DtoCustomer;
+import DTOs.Objects.DtoCustomer;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -12,11 +12,11 @@ import javax.swing.JOptionPane;
 public class CustomerDelete extends java.awt.Dialog {
     private CustomerController controller;
     private int ID;
-    private Customers form;
+    private CustomersMain form;
     /**
      * Creates new form CustomerDelete
      */
-    public CustomerDelete(java.awt.Frame parent, boolean modal, CustomerController controller, Customers form) {
+    public CustomerDelete(java.awt.Frame parent, boolean modal, CustomerController controller, CustomersMain form) {
         super(parent, modal);
         this.ID = ID;
         this.controller = controller;
@@ -123,10 +123,10 @@ public class CustomerDelete extends java.awt.Dialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+   // public static void main(String args[]) {
+        //java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Customers customersForm = new Customers();
+                CustomersMain customersForm = new CustomersMain();
                 CustomerController controller = new CustomerController();
                 CustomerDelete dialog = new CustomerDelete(new java.awt.Frame(), true, controller, customersForm);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -136,8 +136,8 @@ public class CustomerDelete extends java.awt.Dialog {
                 });
                 dialog.setVisible(true);
             }
-        });
-    }
+        //});
+   // }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,7 +1,7 @@
 package Queries;
 
 import Connection.ConnectionContext;
-import Objects.DtoBrand;
+import DTOs.Objects.DtoBrand;
 import Repository.Objects.RepoBrand;
 import java.util.List;
 import java.sql.Connection;
@@ -44,7 +44,7 @@ public class QBrand implements RepoBrand{
 
     @Override
     public int insert(DtoBrand dto) {
-        String query = "INSERT INTO brands (name) VALUES (?)";
+        String query = "INSERT INTO brands (Name) VALUES (?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)){
             stmt.setString(1, dto.getName());
             return stmt.executeUpdate();            
@@ -56,7 +56,7 @@ public class QBrand implements RepoBrand{
 
     @Override
     public int update(DtoBrand dto) {
-        String query = "INSERT INTO brands set name=? WHERE brandid = ?";
+        String query = "UPDATE brands set name=? WHERE brandid = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)){
             stmt.setString(1, dto.getName());
             stmt.setInt(2,dto.getBrandID());

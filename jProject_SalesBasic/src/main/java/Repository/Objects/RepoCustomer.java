@@ -1,6 +1,6 @@
 package Repository.Objects;
 
-import Objects.DtoCustomer;
+import DTOs.Objects.DtoCustomer;
 import Repository.RepoGeneric;
 import java.util.List;
 

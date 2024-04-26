@@ -1,7 +1,7 @@
 
 package Repository.Objects;
 
-import Objects.DtoBrand;
+import DTOs.Objects.DtoBrand;
 import Repository.RepoGeneric;
 import java.util.List;
 

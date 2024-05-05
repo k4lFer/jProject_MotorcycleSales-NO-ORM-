@@ -1,6 +1,6 @@
 CREATE DATABASE DB_SalesMotorcycle
 GO
-
+ USE DB_SalesMotorcycle
 
 GO
 
@@ -29,6 +29,7 @@ CREATE TABLE Brands (
 -- Products Table
 CREATE TABLE Products (
     ProductID INT IDENTITY(1,1) PRIMARY KEY,
+    Cod VARCHAR(15),
     Name VARCHAR(50),
     Displacement VARCHAR(50), 
     Price DECIMAL(10, 2),
@@ -59,3 +60,7 @@ CREATE TABLE SalesDetails (
     Price DECIMAL(10, 2),
     FOREIGN KEY (SaleID) REFERENCES Sales(SaleID),
 );
+
+
+
+

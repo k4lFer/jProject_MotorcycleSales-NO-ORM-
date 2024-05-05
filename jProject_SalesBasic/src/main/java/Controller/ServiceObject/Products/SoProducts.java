@@ -12,6 +12,7 @@ public class SoProducts {
     public List<DtoProducts> allProducts;
 
     public SoProducts() {
+        this.dtoProducts = new DtoProducts();
     }
 
     public SoProducts(DtoProducts dtoProducts, List<DtoProducts> allProducts) {

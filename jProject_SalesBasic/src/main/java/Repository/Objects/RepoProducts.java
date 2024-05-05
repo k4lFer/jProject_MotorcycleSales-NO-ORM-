@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface RepoProducts extends RepoGeneric<DtoProducts>{
     public List<DtoProducts> getAll();
-    
+    public DtoProducts getByCod(String cod);
     
 }

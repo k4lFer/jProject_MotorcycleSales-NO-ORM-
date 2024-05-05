@@ -15,12 +15,12 @@ public class DtoSales {
     private Date date;
     private int quantity;
     private double totalPrice;
-    private List<SalesDetails> salesDetails;
+    private List<DtoSalesDetails> salesDetails;
 
     public DtoSales() {
     }
 
-    public DtoSales(int saleID, int customerID, int productID, Date date, int quantity, double totalPrice, List<SalesDetails> salesDetails) {
+    public DtoSales(int saleID, int customerID, int productID, Date date, int quantity, double totalPrice, List<DtoSalesDetails> salesDetails) {
         this.saleID = saleID;
         this.customerID = customerID;
         this.productID = productID;
@@ -29,6 +29,7 @@ public class DtoSales {
         this.totalPrice = totalPrice;
         this.salesDetails = salesDetails;
     }
+
 
     public int getSaleID() {
         return saleID;
@@ -79,11 +80,11 @@ public class DtoSales {
         this.totalPrice = totalPrice;
     }
 
-    public List<SalesDetails> getSalesDetails() {
+    public List<DtoSalesDetails> getSalesDetails() {
         return salesDetails;
     }
 
-    public void setSalesDetails(List<SalesDetails> salesDetails) {
+    public void setSalesDetails(List<DtoSalesDetails> salesDetails) {
         this.salesDetails = salesDetails;
     }
     

@@ -1,7 +1,7 @@
 package Views.Maintenances.Product;
 
 import Views.Maintenances.Product.Products.Products;
-import Views.Maintenances.Product.TypesMotorCycle.TypesMotroCycle;
+import Views.Maintenances.Product.TypesMotorCycle.TypesMotorCycle;
 import Views.Maintenances.Product.Brands.Brands;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -25,7 +25,7 @@ public class ProductsMain extends javax.swing.JInternalFrame {
         Brands brandsPanel = new Brands();
         tabbedPane.addTab("Marcas", brandsPanel);
         
-        TypesMotroCycle typesPanel = new TypesMotroCycle();
+        TypesMotorCycle typesPanel = new TypesMotorCycle();
         tabbedPane.addTab("Tipos de motocicletas", typesPanel);
         
         Products productsPanel = new Products();
@@ -33,8 +33,8 @@ public class ProductsMain extends javax.swing.JInternalFrame {
         
         tabbedPane.setPreferredSize(new Dimension(930, 500));
         
-        System.out.println("El JTabbedPane es visible: " + tabbedPane.isVisible());
-    
+        //System.out.println("El JTabbedPane es visible: " + tabbedPane.isVisible());
+        tabbedPane.isVisible();
         jPanel_backGround.add(tabbedPane, BorderLayout.CENTER);
         
 
@@ -60,11 +60,11 @@ public class ProductsMain extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_backGround, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_backGround, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_backGround, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_backGround, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
         );
 
         pack();

@@ -52,6 +52,4 @@ public class DtoSalesDetails {
         this.price = price;
     }
 
-    
-    
 }

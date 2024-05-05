@@ -5,6 +5,7 @@ import Queries.QCustomer;
 import Controller.ServiceObject.Customers.CustomerValidation;
 import static Controller.ServiceObject.Customers.CustomerValidation.updateisDniExists;
 import Controller.ServiceObject.Customers.SoCustomers;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -86,13 +87,14 @@ public class CustomerController {
 
     // Método para obtener un cliente por DNI
     public DtoCustomer getCustomerByDni(String dni) {
-        for (DtoCustomer customer : so.getAllCustomers()) {
-            if (customer.getDni().equals(dni)) {
-                return customer;
-            }
+        DtoCustomer customer = model.getByDni(dni);     
+        if (customer!= null) {
+            so.dtoCustomer = customer;
+            return customer; 
+        } else {
+            JOptionPane.showMessageDialog(null, "Cliente no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+            return null; 
         }
-        // Si no se encuentra el cliente, retorna null
-        return null;
     }
 
     // Método para obtener un cliente por ID

@@ -52,6 +52,7 @@ public class BrandController {
             JOptionPane.showMessageDialog(null, "Marca eliminado exitosamente.","Success", JOptionPane.INFORMATION_MESSAGE);
     }else {
             JOptionPane.showMessageDialog(null, "Error al eliminar la Marca.","Warning", JOptionPane.WARNING_MESSAGE);
+            
     }
     return result;
    }

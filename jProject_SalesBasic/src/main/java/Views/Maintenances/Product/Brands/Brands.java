@@ -112,6 +112,11 @@ public class Brands extends javax.swing.JPanel {
         add(jBttn_ViewBrand, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, -1, -1));
 
         jBttn_DeleteBrand.setText("Eliminar");
+        jBttn_DeleteBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBttn_DeleteBrandActionPerformed(evt);
+            }
+        });
         add(jBttn_DeleteBrand, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 350, -1, -1));
         add(brandTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 110, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -129,13 +134,13 @@ public class Brands extends javax.swing.JPanel {
 
     private void jBttn_EditBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttn_EditBrandActionPerformed
         // TODO add your handling code here:
-        int selectdRow = jTable_Brands.getSelectedRow();
-        if(selectdRow == -1){
+        int selectedRow = jTable_Brands.getSelectedRow();
+        if(selectedRow == -1){
             JOptionPane.showMessageDialog(this, "Selecciona una Marca para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        int brandID = rowToBrandIdMap.get(selectdRow);
-        String name = (String) jTable_Brands.getValueAt(selectdRow, 0);
+        int brandID = rowToBrandIdMap.get(selectedRow);
+        String name = (String) jTable_Brands.getValueAt(selectedRow, 0);
         
         Frame f = JOptionPane.getFrameForComponent(this);
         
@@ -145,6 +150,24 @@ public class Brands extends javax.swing.JPanel {
         updateDialog.setVisible(true);
         
     }//GEN-LAST:event_jBttn_EditBrandActionPerformed
+
+    private void jBttn_DeleteBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttn_DeleteBrandActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable_Brands.getSelectedRow();
+        if(selectedRow == -1){
+            JOptionPane.showMessageDialog(this, "Selecciona una Marca para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int brandID = rowToBrandIdMap.get(selectedRow);
+        String name = (String) jTable_Brands.getValueAt(selectedRow, 0);
+        
+        Frame f = JOptionPane.getFrameForComponent(this);
+        DeleteBrand deletedialog = new DeleteBrand(f, true, controller, this);
+        
+        deletedialog.setBrandData(name, brandID);
+        deletedialog.setVisible(true);
+        
+    }//GEN-LAST:event_jBttn_DeleteBrandActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

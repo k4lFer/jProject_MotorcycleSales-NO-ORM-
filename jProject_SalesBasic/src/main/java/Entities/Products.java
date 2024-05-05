@@ -6,6 +6,7 @@ package Entities;
  */
 public class Products {
     private int productID;
+    private String Cod;
     private String name;
     private String displacement;
     private double price;
@@ -16,8 +17,9 @@ public class Products {
     public Products() {
     }
 
-    public Products(int productID, String name, String displacement, double price, int stockQuantity, int motorcycleTypeID, int brandID) {
+    public Products(int productID, String Cod, String name, String displacement, double price, int stockQuantity, int motorcycleTypeID, int brandID) {
         this.productID = productID;
+        this.Cod = Cod;
         this.name = name;
         this.displacement = displacement;
         this.price = price;
@@ -32,6 +34,14 @@ public class Products {
 
     public void setProductID(int productID) {
         this.productID = productID;
+    }
+
+    public String getCod() {
+        return Cod;
+    }
+
+    public void setCod(String Cod) {
+        this.Cod = Cod;
     }
 
     public String getName() {

@@ -69,9 +69,10 @@ public class QBrand implements RepoBrand{
 
     @Override
     public int delete(int id) {
-        String query = "DELETE FROM brands WHERE brandid = ?";
+        String query = "DELETE FROM brands WHERE BrandID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)){
             stmt.setInt(1, id);
+            return stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

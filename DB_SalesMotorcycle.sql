@@ -39,28 +39,23 @@ CREATE TABLE Products (
     FOREIGN KEY (MotorcycleTypeID) REFERENCES MotorcycleTypes(MotorcycleTypeID),
     FOREIGN KEY (BrandID) REFERENCES Brands(BrandID)
 );
-
 -- Sales Table
 CREATE TABLE Sales (
     SaleID INT IDENTITY(1,1) PRIMARY KEY,
     CustomerID INT,
-    ProductID INT,
     Date DATETIME,
-    Quantity INT,
     TotalPrice DECIMAL(10, 2),
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
 );
 
 -- Sales Details Table
 CREATE TABLE SalesDetails (
     DetailID INT IDENTITY(1,1) PRIMARY KEY,
     SaleID INT,
+    ProductID INT,
     Quantity INT,
-    Price DECIMAL(10, 2),
+    UnitPrice DECIMAL(10,2),
+    SubTotalPrice DECIMAL(10, 2),
     FOREIGN KEY (SaleID) REFERENCES Sales(SaleID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
-
-
-
-

@@ -32,10 +32,8 @@ public class QSales implements RepoSales {
                 DtoSales sales = new DtoSales();
                 sales.setSaleID(rs.getInt("saleID"));
                 sales.setCustomerID(rs.getInt("customerID"));
-                sales.setProductID(rs.getInt("productID"));
-                sales.setQuantity(rs.getInt("quantity"));
                 sales.setDate(rs.getDate("date"));
-                sales.setTotalPrice(rs.getDouble("price"));
+                sales.setTotalPrice(rs.getDouble("totalPrice"));
  
                 dtosales.add(sales);
             }
@@ -48,13 +46,11 @@ public class QSales implements RepoSales {
 
     @Override
     public int insert(DtoSales dto) {
-        String query = "INSERT INTO sales (customerID, productID, date, quantity, totalprice) VALUES (?, ?, GETDATE(), ?, ?)";
+        String query = "INSERT INTO sales (customerID, date, totalprice) VALUES (?, GETDATE(), ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)){
             stmt.setInt(1, dto.getCustomerID());
-            stmt.setInt(2, dto.getProductID());
-            //stmt.setDate(3, dto.getDate("GETDATE()"));
-            stmt.setInt(4, dto.getQuantity());
-            stmt.setDouble(5, dto.getTotalPrice());
+            //stmt.setDate(2, dto.getDate("GETDATE()"));
+            stmt.setDouble(2, dto.getTotalPrice());
             return stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,13 +60,11 @@ public class QSales implements RepoSales {
 
     @Override
     public int update(DtoSales dto) {
-        String query = "UPDATE sales SET customerID = ?, productID = ?, quantity = ?, totalprice = ? WHERE SaleID = ?";
+        String query = "UPDATE sales SET customerID = ?, totalprice = ? WHERE SaleID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)){
             stmt.setInt(1, dto.getCustomerID());
-            stmt.setInt(2, dto.getProductID());
-            stmt.setInt(3, dto.getQuantity());
-            stmt.setDouble(4, dto.getTotalPrice());
-            stmt.setInt(5, dto.getSaleID());
+            stmt.setDouble(2, dto.getTotalPrice());
+            stmt.setInt(3, dto.getSaleID());
             return stmt.executeUpdate();            
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,10 +96,8 @@ public class QSales implements RepoSales {
                     dtosales = new DtoSales();
                     dtosales.setSaleID(rs.getInt("saleID"));
                     dtosales.setCustomerID(rs.getInt("customerID"));
-                    dtosales.setProductID(rs.getInt("productID"));
-                    dtosales.setQuantity(rs.getInt("quantity"));
                     dtosales.setDate(rs.getDate("date"));
-                    dtosales.setTotalPrice(rs.getDouble("price"));
+                    dtosales.setTotalPrice(rs.getDouble("totalPrice"));
                 } 
             } 
             
@@ -114,4 +106,5 @@ public class QSales implements RepoSales {
         }
         return dtosales;
     }
+   
 }

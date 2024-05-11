@@ -5,19 +5,23 @@ package DTOs.Objects;
  * @author kalfe
  */
 public class DtoSalesDetails {
-    private int detailID;
-    private int saleID;
-    private int quantity;
-    private double price;
+    private int detailID; 
+    private int saleID ;
+    private int productID ;
+    private int quantity ;
+    private double unitPrice ;
+    private double subTotalPrice;
 
     public DtoSalesDetails() {
     }
 
-    public DtoSalesDetails(int detailID, int saleID, int productID, int quantity, double price) {
+    public DtoSalesDetails(int detailID, int saleID, int productID, int quantity, double unitPrice, double subTotalPrice) {
         this.detailID = detailID;
         this.saleID = saleID;
+        this.productID = productID;
         this.quantity = quantity;
-        this.price = price;
+        this.unitPrice = unitPrice;
+        this.subTotalPrice = subTotalPrice;
     }
 
     public int getDetailID() {
@@ -36,6 +40,14 @@ public class DtoSalesDetails {
         this.saleID = saleID;
     }
 
+    public int getProductID() {
+        return productID;
+    }
+
+    public void setProductID(int productID) {
+        this.productID = productID;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -44,12 +56,20 @@ public class DtoSalesDetails {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
-        return price;
+    public double getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
+    public double getSubTotalPrice() {
+        return subTotalPrice;
+    }
+
+    public void setSubTotalPrice(double subTotalPrice) {
+        this.subTotalPrice = subTotalPrice;
+    }
+    
 }

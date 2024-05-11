@@ -17,6 +17,7 @@ D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenan
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Entities\Products.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Product\Products\Products.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ServiceObject\TypesMotorCycle\TypesMotorCycleValidation.java
+D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\SalesDetailsController.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Product\TypesMotorCycle\TypesMotorCycle.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ServiceObject\Customers\SoCustomers.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\TypesMotorController.java
@@ -30,6 +31,7 @@ D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Sales\Sal
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Product\Brands\Brands.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Entities\MotorcycleType.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\DTOs\Objects\DtoCustomer.java
+D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ServiceObject\Sales\SalesService.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ProductController.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ServiceObject\TypesMotorCycle\SoTypesMotorCycle.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Connection\ConnectionContext.java

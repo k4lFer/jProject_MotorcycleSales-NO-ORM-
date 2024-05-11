@@ -38,14 +38,11 @@ public class DeleteTypes extends java.awt.Dialog {
         int id = ID;
         int result = controller.deleteTypes(id);
         if(result > 0){
-            JOptionPane.showMessageDialog(null, "Tipo de Motocicleta eliminada exitosamente");
+           // JOptionPane.showMessageDialog(null, "Tipo de Motocicleta eliminada exitosamente");
             List<DtoMotorcycleType> types = controller.loadTypesMotorcycle();
             form.updateTable(types);
             dispose();
-        }else{
-            JOptionPane.showMessageDialog(null, "No se puedo eliminar el Tipo.");
         }
-
     }
     /**
      * This method is called from within the constructor to initialize the form.

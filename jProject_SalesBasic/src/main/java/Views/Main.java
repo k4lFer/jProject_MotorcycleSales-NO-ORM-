@@ -3,8 +3,6 @@ package Views;
 import Views.Maintenances.Customer.CustomersMain;
 import Views.Maintenances.Product.ProductsMain;
 import Views.Sales.SalesMain;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 /**
  *

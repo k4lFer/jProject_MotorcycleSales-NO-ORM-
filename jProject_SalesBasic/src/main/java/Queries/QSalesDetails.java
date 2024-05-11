@@ -31,9 +31,11 @@ public class QSalesDetails implements RepoSalesDetails{
             while (rs.next()){
                 DtoSalesDetails dtosalesdetails = new DtoSalesDetails();
                 dtosalesdetails.setDetailID(rs.getInt("detailID"));
-                dtosalesdetails.setPrice(rs.getDouble("price"));
+                dtosalesdetails.setSaleID(rs.getInt("SaleID"));
+                dtosalesdetails.setProductID(rs.getInt("productID"));
+                dtosalesdetails.setUnitPrice(rs.getDouble("UnitPrice"));
                 dtosalesdetails.setQuantity(rs.getInt("quantity"));
-                dtosalesdetails.setSaleID(rs.getInt("saleID"));
+                dtosalesdetails.setSubTotalPrice(rs.getDouble("SubTotalPrice"));
                                 
                 salesdetails.add(dtosalesdetails);        
             }
@@ -45,11 +47,14 @@ public class QSalesDetails implements RepoSalesDetails{
 
     @Override
     public int insert(DtoSalesDetails dto) {
-        String query = "INSERT INTO salesdetails (saleid, quantity, price)";
+        String query = "INSERT INTO salesdetails (saleid, productID, quantity, UnitPrice, SubTotalPrice) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, dto.getSaleID());
-            stmt.setInt(2, dto.getQuantity());
-            stmt.setDouble(3, dto.getPrice());
+            stmt.setInt(2, dto.getProductID());
+            stmt.setInt(3, dto.getQuantity());
+            stmt.setDouble(4, dto.getUnitPrice());
+            stmt.setDouble(5, dto.getSubTotalPrice());
+
             return stmt.executeUpdate();
             
         } catch (SQLException e) {
@@ -60,12 +65,14 @@ public class QSalesDetails implements RepoSalesDetails{
 
     @Override
     public int update(DtoSalesDetails dto) {
-       String query = "UPDATE SalesDetails SET saleID = ?, quantity = ?, price = ? WHERE detailID = ?" ; 
+       String query = "UPDATE SalesDetails SET saleID = ?, productID = ?, quantity = ?, unitPrice = ? , SubTotalPrice = ? WHERE detailID = ?" ; 
         try (PreparedStatement stmt = connection.prepareStatement(query)){
             stmt.setInt(1, dto.getSaleID());
-            stmt.setInt(2, dto.getQuantity());
-            stmt.setDouble(3, dto.getPrice());
-            stmt.setInt(4, dto.getDetailID());
+            stmt.setInt(2, dto.getProductID());
+            stmt.setInt(3, dto.getQuantity());
+            stmt.setDouble(4, dto.getUnitPrice());
+            stmt.setDouble(5, dto.getSubTotalPrice());
+            stmt.setDouble(6, dto.getDetailID());
             return stmt.executeUpdate();            
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,19 +95,20 @@ public class QSalesDetails implements RepoSalesDetails{
     @Override
     public DtoSalesDetails getById(int id) {
         DtoSalesDetails dtosalesdetails = null;
-        String query = "SELECT * FROM SalesDetails WHERE detailID = ?";
+        String query = "SELECT * FROM SalesDetails WHERE detailID =?";
         try (PreparedStatement stmt = connection.prepareStatement(query)){
             stmt.setInt(1, id);
-            try(ResultSet rs = stmt.executeQuery()){
+            try (ResultSet rs = stmt.executeQuery()){
                 if(rs.next()){
                     dtosalesdetails = new DtoSalesDetails();
                     dtosalesdetails.setDetailID(rs.getInt("detailID"));
-                    dtosalesdetails.setSaleID(rs.getInt("saleID"));
+                    dtosalesdetails.setSaleID(rs.getInt("SaleID"));
+                    dtosalesdetails.setProductID(rs.getInt("productID"));
+                    dtosalesdetails.setUnitPrice(rs.getDouble("UnitPrice"));
                     dtosalesdetails.setQuantity(rs.getInt("quantity"));
-                    dtosalesdetails.setPrice(rs.getDouble("price"));
+                    dtosalesdetails.setSubTotalPrice(rs.getDouble("SubtotalPrice"));
                 }
             }
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }

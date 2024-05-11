@@ -36,13 +36,10 @@ public class DeleteBrand extends java.awt.Dialog {
         int id = ID;
         int result = controller.deleteBrand(id);
         if(result > 0){
-            JOptionPane.showMessageDialog(null, "Marca eliminada exitosamente");
+            //JOptionPane.showMessageDialog(null, "Marca eliminada exitosamente");
             List<DtoBrand> brands = controller.loadBrands();
             form.updateTable(brands);
             dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "No se puedo eliminar la Marca.");
         }
     }
 

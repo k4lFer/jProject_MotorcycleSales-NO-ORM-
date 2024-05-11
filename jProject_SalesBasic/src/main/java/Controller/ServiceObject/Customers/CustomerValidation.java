@@ -22,13 +22,11 @@ public class CustomerValidation {
     public static boolean isDniExists(String dni){
         QCustomer qCustomer = new QCustomer();
         DtoCustomer dtoCustomer = qCustomer.getByDni(dni);
-        /*if(dtoCustomer != null){
-            addErrorMessage("El DNI ya existe.");
+        if(dtoCustomer!= null){
+            JOptionPane.showMessageDialog(null, "El DNI ya existe.");
             return true;
-        }*/
-        JOptionPane.showMessageDialog(null, "El DNI ya existe.");
-        //return false;       
-        return dtoCustomer != null;
+        }
+        return false;
     }
     
     public static boolean updateisDniExists(String currentDni, String newDni){

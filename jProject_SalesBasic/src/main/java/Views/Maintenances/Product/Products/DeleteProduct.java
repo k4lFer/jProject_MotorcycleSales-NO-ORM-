@@ -39,15 +39,11 @@ public class DeleteProduct extends java.awt.Dialog {
         int idProduct = id;
         int result = controller.deleteProduct(idProduct);
         if(result > 0){
-            JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente");
+            //JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente");
             List<DtoProducts> products = controller.loadProducts();
             form.updateTable(products);
             dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "No se puedo eliminar el Producto.");
-        }
-        
+        }        
     }
     /**
      * This method is called from within the constructor to initialize the form.

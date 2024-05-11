@@ -10,25 +10,20 @@ import java.util.List;
 public class Sales {
     private int saleID;
     private int customerID;
-    private int productID;
     private Date date;
-    private int quantity;
     private double totalPrice;
     private List<SalesDetails> salesDetails;
-
+    
     public Sales() {
     }
 
-    public Sales(int saleID, int customerID, int productID, Date date, int quantity, double totalPrice, List<SalesDetails> salesDetails) {
+    public Sales(int saleID, int customerID, Date date, double totalPrice, List<SalesDetails> salesDetails) {
         this.saleID = saleID;
         this.customerID = customerID;
-        this.productID = productID;
         this.date = date;
-        this.quantity = quantity;
         this.totalPrice = totalPrice;
         this.salesDetails = salesDetails;
     }
-
 
     public int getSaleID() {
         return saleID;
@@ -46,28 +41,12 @@ public class Sales {
         this.customerID = customerID;
     }
 
-    public int getProductID() {
-        return productID;
-    }
-
-    public void setProductID(int productID) {
-        this.productID = productID;
-    }
-
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public double getTotalPrice() {
@@ -85,6 +64,4 @@ public class Sales {
     public void setSalesDetails(List<SalesDetails> salesDetails) {
         this.salesDetails = salesDetails;
     }
-    
-    
 }

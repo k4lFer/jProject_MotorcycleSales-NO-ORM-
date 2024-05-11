@@ -5,7 +5,6 @@ import Queries.QCustomer;
 import Controller.ServiceObject.Customers.CustomerValidation;
 import static Controller.ServiceObject.Customers.CustomerValidation.updateisDniExists;
 import Controller.ServiceObject.Customers.SoCustomers;
-import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -32,7 +31,7 @@ public class CustomerController {
         if (!CustomerValidation.validateAndInsertOrEditCustomer(so.dtoCustomer)) {
           return -1;
         }
-        if (CustomerValidation.isDniExists(so.dtoCustomer.getDni()) || !CustomerValidation.validateAndInsertOrEditCustomer(so.dtoCustomer)) {
+        if (CustomerValidation.isDniExists(so.dtoCustomer.getDni())) {
             return -1; 
         }
 
@@ -43,12 +42,10 @@ public class CustomerController {
         } else {
             JOptionPane.showMessageDialog(null, "Error al crear el cliente.");
         }
-        //so.setAllCustomers(model.getAll());
 
         return result;
     }
     
-
     // Método para actualizar un cliente existente  
     public int updateCustomer(SoCustomers so, String currentDni) {
         if (!CustomerValidation.validateAndInsertOrEditCustomer(so.dtoCustomer)) {
@@ -66,24 +63,19 @@ public class CustomerController {
             JOptionPane.showMessageDialog(null, "Error al actualizar el cliente.","Warning", JOptionPane.WARNING_MESSAGE);
         }
 
-        //so.setAllCustomers(model.getAll());
         return result;
     }
 
     // Método para eliminar un cliente por ID
     public int deleteCustomer(int id) {
         int result = model.delete(id);
-
         if (result > 0) {
             JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente.","Success", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Error al eliminar el cliente.","Warning", JOptionPane.WARNING_MESSAGE);
         }
-
-        //so.setAllCustomers(model.getAll());
-
         return result;
-        }
+    }
 
     // Método para obtener un cliente por DNI
     public DtoCustomer getCustomerByDni(String dni) {
@@ -99,13 +91,11 @@ public class CustomerController {
 
     // Método para obtener un cliente por ID
     public DtoCustomer getCustomerById(int id) {
-        // Realiza la búsqueda en la lista de clientes del objeto SoCustomers
         for (DtoCustomer customer : so.getAllCustomers()) {
             if (customer.getCustomerID() == id) {
                 return customer;
             }
         }
-        // Si no se encuentra el cliente, retorna null
         return null;
     }
 }

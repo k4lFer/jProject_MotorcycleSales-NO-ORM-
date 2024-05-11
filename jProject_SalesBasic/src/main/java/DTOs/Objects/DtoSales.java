@@ -1,6 +1,5 @@
 package DTOs.Objects;
 
-import Entities.SalesDetails;
 import java.util.Date;
 import java.util.List;
 
@@ -11,25 +10,21 @@ import java.util.List;
 public class DtoSales {
     private int saleID;
     private int customerID;
-    private int productID;
     private Date date;
-    private int quantity;
     private double totalPrice;
     private List<DtoSalesDetails> salesDetails;
 
     public DtoSales() {
     }
 
-    public DtoSales(int saleID, int customerID, int productID, Date date, int quantity, double totalPrice, List<DtoSalesDetails> salesDetails) {
+    public DtoSales(int saleID, int customerID, Date date, double totalPrice, List<DtoSalesDetails> salesDetails) {
         this.saleID = saleID;
         this.customerID = customerID;
-        this.productID = productID;
         this.date = date;
-        this.quantity = quantity;
         this.totalPrice = totalPrice;
         this.salesDetails = salesDetails;
+      //  this.salesDetails = new ArrayList<>();
     }
-
 
     public int getSaleID() {
         return saleID;
@@ -47,29 +42,12 @@ public class DtoSales {
         this.customerID = customerID;
     }
 
-    public int getProductID() {
-        return productID;
-    }
-
-    public void setProductID(int productID) {
-        this.productID = productID;
-    }
-    
-
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public double getTotalPrice() {

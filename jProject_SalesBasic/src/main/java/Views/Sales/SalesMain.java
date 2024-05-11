@@ -1,16 +1,21 @@
 package Views.Sales;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import Controller.CustomerController;
 import Controller.ProductController;
+import Controller.SalesController;
+import Controller.SalesDetailsController;
 import Controller.ServiceObject.Customers.SoCustomers;
 import Controller.ServiceObject.Products.SoProducts;
-import DTOs.Objects.DtoCustomer;
-import DTOs.Objects.DtoProducts;
+import Controller.ServiceObject.Sales.SoSales;
+import Controller.ServiceObject.Sales.SoSalesDetails;
+import DTOs.Objects.DtoSales;
+import DTOs.Objects.DtoSalesDetails;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,10 +23,20 @@ import javax.swing.SpinnerNumberModel;
  */
 public class SalesMain extends javax.swing.JInternalFrame {
     private CustomerController customerController;
-    private DtoCustomer dto;
     private int idCustomer;
     private int idProduct;
+    private double priceU;
+    private double subTotal;
+    private double priceTotal;
+    private String codProduct;
+    private String nameProduct;
     private ProductController productController;
+    private SalesController salesController;
+    private SalesDetailsController salesDetailsController;
+    private SoSales currentSale = new SoSales();
+    private SoSalesDetails soDetail = new SoSalesDetails();
+    private List<DtoSalesDetails> salesDetailsList = new ArrayList<>();
+
     
     /**
      * Creates new form SalesMain
@@ -30,12 +45,37 @@ public class SalesMain extends javax.swing.JInternalFrame {
         setClosable(true); 
         productController = new ProductController();
         customerController = new CustomerController();
-        this.dto = new DtoCustomer();
+        salesController = new SalesController();
+        salesDetailsController = new SalesDetailsController();
         this.idProduct = 0;
         this.idCustomer = 0;
         initComponents();
-        jLabel_viewPriceTotal.setText("-----");
         dateView();
+        currentSale.dtoSales.setSalesDetails(new ArrayList<>());
+
+    }
+
+    private void addProductToTable(int productId, String productCode, String productName, double unitPrice) {
+        int quantity = (int) quantitySpinner.getValue();
+        subTotal = priceU * quantity;
+        priceTotal += subTotal;
+        jLabel_viewPriceTotal.setText("$" + priceTotal);
+        DtoSalesDetails saleDetail = new DtoSalesDetails();
+        saleDetail.setProductID(productId);
+        saleDetail.setQuantity(quantity);
+        saleDetail.setUnitPrice(unitPrice);
+        saleDetail.setSubTotalPrice(subTotal); 
+
+        salesDetailsList.add(saleDetail);
+
+        DefaultTableModel model = (DefaultTableModel) jTable_viewDataSale.getModel();
+        Object[] rowData = {productCode, productName, saleDetail.getQuantity(), saleDetail.getUnitPrice(), saleDetail.getSubTotalPrice()};
+        model.addRow(rowData); 
+        
+            System.out.println("Detalles de la venta después de agregar producto:");
+            for (DtoSalesDetails detail : salesDetailsList) {
+                System.out.println(detail.getProductID());
+            }
     }
 
     public void dateView(){
@@ -63,60 +103,82 @@ public class SalesMain extends javax.swing.JInternalFrame {
         SoProducts product = new SoProducts();
         String nCode = codProductTextField.getText();
         product.dtoProducts = productController.getProductByCod(nCode);
+        
         if(product.dtoProducts != null){
             idProduct = product.dtoProducts.getProductID();
-            String name = product.dtoProducts.getName();
-            jLabel_viewProduct.setText(name);
-            double price = product.dtoProducts.getPrice();
-            jLabel_viewPrice.setText("$"+" "+price);
+            codProduct = product.dtoProducts.getCod();
+            nameProduct = product.dtoProducts.getName();
+            jLabel_viewProduct.setText(nameProduct);
+            priceU = product.dtoProducts.getPrice();
+            jLabel_viewPrice.setText("$"+" "+priceU);
             int stock = product.dtoProducts.getStockQuantity();
             jLabel_viewStock.setText(""+stock);
             int maxStock = stock;
             int minStock = 1;
             quantitySpinner.setModel(new SpinnerNumberModel(minStock, minStock, maxStock, 1));
-            updateTotalPrice();
+
         } else{
             jLabel_viewProduct.setText("No se encontró el Producto");
         }
     }
-    private void updateTotalPrice() {
-        // Obtener el precio del producto
-        double price = Double.parseDouble(jLabel_viewPrice.getText().replace("$", "").trim());
-        // Obtener la cantidad seleccionada en el spinner
-        int quantity = (int) quantitySpinner.getValue();
-        // Calcular el total
-        double total = price * quantity;
-        // Actualizar el label con el total
-        jLabel_viewPriceTotal.setText("$" + total);
+    
+    private int insertSale() {
+        int customerID = idCustomer;
+        double TotalPrice = priceTotal; 
+        currentSale.dtoSales.setCustomerID(customerID);
+        currentSale.dtoSales.setTotalPrice(TotalPrice);
+        int result = salesController.insertSale(currentSale);
+
+        if (result > 0) {
+            System.out.println("Venta insertada correctamente.");
+            List<DtoSales> allSales = salesController.loadSales();
+            DtoSales lastSale = allSales.get(allSales.size() - 1);
+            int lastSaleID = lastSale.getSaleID();
+
+            return lastSaleID;
+        } else {
+            System.out.println("Error al insertar la venta.");
+            return -1;
+        }
     }
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+    private void insertSaleDetail(int ventaID) {
+        for (DtoSalesDetails detail : salesDetailsList) {
+            detail.setSaleID(ventaID);
+            soDetail.dtoSalesDetails = detail;
+            //SalesDetailsController salesDetailsController = new SalesDetailsController();
+            int result = salesDetailsController.insertSaleDetails(soDetail);
+            
+            if (result > 0) {
+                System.out.println("Detalle de venta insertado correctamente.");
+            } else {
+                System.out.println("Error al insertar el detalle de venta.");
+            }
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel_back = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel_title = new javax.swing.JLabel();
         jPanel_search = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel_dni = new javax.swing.JLabel();
         numberDniTextField = new javax.swing.JTextField();
         jBttn_searchDni = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel_cod = new javax.swing.JLabel();
         codProductTextField = new javax.swing.JTextField();
         jBttn_searchCod = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel_customer = new javax.swing.JLabel();
         jLabel_viewCustomer = new javax.swing.JLabel();
         jLabel_viewProduct = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel_product = new javax.swing.JLabel();
         jLabel_date = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel_stock = new javax.swing.JLabel();
         jLabel_viewStock = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jLabel_priceU = new javax.swing.JLabel();
         jLabel_viewPrice = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel_quantity = new javax.swing.JLabel();
         quantitySpinner = new javax.swing.JSpinner();
         jBttn_add = new javax.swing.JButton();
         jPanel_viewSales = new javax.swing.JPanel();
@@ -124,24 +186,21 @@ public class SalesMain extends javax.swing.JInternalFrame {
         jTable_viewDataSale = new javax.swing.JTable();
         jPanel_actions = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jBttn_generateSale = new javax.swing.JButton();
         jPanel_viewPrice = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
+        jLabel_totalPrice = new javax.swing.JLabel();
         jLabel_viewPriceTotal = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
 
         jPanel_back.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel1.setText("Punto de venta");
-        jPanel_back.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
+        jLabel_title.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel_title.setText("Punto de venta");
+        jPanel_back.add(jLabel_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
 
         jPanel_search.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("DNI Cliente:");
+        jLabel_dni.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_dni.setText("DNI Cliente:");
 
         jBttn_searchDni.setText("Buscar");
         jBttn_searchDni.addActionListener(new java.awt.event.ActionListener() {
@@ -150,8 +209,8 @@ public class SalesMain extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("COD Producto:");
+        jLabel_cod.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_cod.setText("COD Producto:");
 
         jBttn_searchCod.setText("Buscar");
         jBttn_searchCod.addActionListener(new java.awt.event.ActionListener() {
@@ -160,8 +219,8 @@ public class SalesMain extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("Cliente:");
+        jLabel_customer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_customer.setText("Cliente:");
 
         jLabel_viewCustomer.setFont(new java.awt.Font("Segoe UI Semibold", 2, 12)); // NOI18N
         jLabel_viewCustomer.setForeground(new java.awt.Color(0, 0, 204));
@@ -169,33 +228,27 @@ public class SalesMain extends javax.swing.JInternalFrame {
         jLabel_viewProduct.setFont(new java.awt.Font("Segoe UI Semibold", 2, 12)); // NOI18N
         jLabel_viewProduct.setForeground(new java.awt.Color(0, 0, 204));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setText("Producto:");
+        jLabel_product.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_product.setText("Producto:");
 
         jLabel_date.setFont(new java.awt.Font("Segoe UI Semibold", 2, 12)); // NOI18N
         jLabel_date.setForeground(new java.awt.Color(0, 0, 204));
         jLabel_date.setText("fecha");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel10.setText("Stock:");
+        jLabel_stock.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_stock.setText("Stock:");
 
         jLabel_viewStock.setFont(new java.awt.Font("Segoe UI Semibold", 2, 12)); // NOI18N
         jLabel_viewStock.setForeground(new java.awt.Color(0, 0, 204));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel12.setText("Precio:");
+        jLabel_priceU.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_priceU.setText("Precio:");
 
         jLabel_viewPrice.setFont(new java.awt.Font("Segoe UI Semibold", 2, 12)); // NOI18N
         jLabel_viewPrice.setForeground(new java.awt.Color(0, 0, 204));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel8.setText("Cantidad:");
-
-        quantitySpinner.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                quantitySpinnerStateChanged(evt);
-            }
-        });
+        jLabel_quantity.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_quantity.setText("Cantidad:");
 
         jBttn_add.setText("Agregar");
         jBttn_add.addActionListener(new java.awt.event.ActionListener() {
@@ -212,21 +265,21 @@ public class SalesMain extends javax.swing.JInternalFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel_searchLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(jLabel_cod)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(codProductTextField))
                     .addGroup(jPanel_searchLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(jLabel_dni)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(numberDniTextField))
                     .addGroup(jPanel_searchLayout.createSequentialGroup()
                         .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel_searchLayout.createSequentialGroup()
-                                .addComponent(jLabel12)
+                                .addComponent(jLabel_priceU)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel_viewPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel_searchLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addComponent(jLabel_quantity)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
@@ -241,15 +294,15 @@ public class SalesMain extends javax.swing.JInternalFrame {
                 .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel_searchLayout.createSequentialGroup()
-                            .addComponent(jLabel10)
+                            .addComponent(jLabel_stock)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel_viewStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanel_searchLayout.createSequentialGroup()
-                            .addComponent(jLabel7)
+                            .addComponent(jLabel_product)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel_viewProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel_searchLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(jLabel_customer)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel_viewCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(112, 112, 112))
@@ -261,37 +314,40 @@ public class SalesMain extends javax.swing.JInternalFrame {
                 .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_searchLayout.createSequentialGroup()
                         .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
+                            .addComponent(jLabel_dni)
                             .addComponent(numberDniTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
+                            .addComponent(jLabel_cod)
                             .addComponent(codProductTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_viewPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel_priceU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBttn_add)))
+                        .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel_quantity)
+                                .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel_searchLayout.createSequentialGroup()
+                                .addComponent(jBttn_add, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1))))
                     .addGroup(jPanel_searchLayout.createSequentialGroup()
                         .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jBttn_searchDni)
-                                .addComponent(jLabel4))
+                                .addComponent(jLabel_customer))
                             .addComponent(jLabel_viewCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBttn_searchCod)
                             .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel_viewProduct, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jLabel_product, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
+                            .addComponent(jLabel_stock)
                             .addComponent(jLabel_viewStock, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(21, 21, 21))
         );
@@ -302,15 +358,20 @@ public class SalesMain extends javax.swing.JInternalFrame {
 
         jTable_viewDataSale.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Codigo", "Producto", "Cantidad", "Precio Unitario", "SubTotal"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable_viewDataSale);
 
         javax.swing.GroupLayout jPanel_viewSalesLayout = new javax.swing.GroupLayout(jPanel_viewSales);
@@ -336,17 +397,17 @@ public class SalesMain extends javax.swing.JInternalFrame {
 
         jButton4.setText("Cancelar");
 
-        jButton5.setText("Generar Venta");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jBttn_generateSale.setText("Generar Venta");
+        jBttn_generateSale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jBttn_generateSaleActionPerformed(evt);
             }
         });
 
         jPanel_viewPrice.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel14.setText("Total a Pagar:");
+        jLabel_totalPrice.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel_totalPrice.setText("Total a Pagar:");
 
         jLabel_viewPriceTotal.setFont(new java.awt.Font("Segoe UI Semibold", 2, 12)); // NOI18N
 
@@ -361,7 +422,7 @@ public class SalesMain extends javax.swing.JInternalFrame {
             .addGroup(jPanel_viewPriceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel_viewPriceLayout.createSequentialGroup()
                     .addGap(11, 11, 11)
-                    .addComponent(jLabel14)
+                    .addComponent(jLabel_totalPrice)
                     .addContainerGap(131, Short.MAX_VALUE)))
         );
         jPanel_viewPriceLayout.setVerticalGroup(
@@ -373,7 +434,7 @@ public class SalesMain extends javax.swing.JInternalFrame {
             .addGroup(jPanel_viewPriceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel_viewPriceLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jLabel14)
+                    .addComponent(jLabel_totalPrice)
                     .addContainerGap(6, Short.MAX_VALUE)))
         );
 
@@ -385,7 +446,7 @@ public class SalesMain extends javax.swing.JInternalFrame {
                 .addGap(49, 49, 49)
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
+                .addComponent(jBttn_generateSale)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
                 .addComponent(jPanel_viewPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69))
@@ -398,7 +459,7 @@ public class SalesMain extends javax.swing.JInternalFrame {
                         .addGap(14, 14, 14)
                         .addGroup(jPanel_actionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4)
-                            .addComponent(jButton5)))
+                            .addComponent(jBttn_generateSale)))
                     .addGroup(jPanel_actionsLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel_viewPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -406,15 +467,6 @@ public class SalesMain extends javax.swing.JInternalFrame {
         );
 
         jPanel_back.add(jPanel_actions, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 810, 60));
-
-        jButton6.setText("jButton6");
-        jPanel_back.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 60, -1, -1));
-
-        jButton7.setText("jButton7");
-        jPanel_back.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 140, -1, -1));
-
-        jButton8.setText("jButton8");
-        jPanel_back.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 220, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -430,9 +482,16 @@ public class SalesMain extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jBttn_generateSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttn_generateSaleActionPerformed
+    int ventaID = insertSale();
+
+        if (ventaID > 0) {
+            insertSaleDetail(ventaID);
+            System.out.println("Venta generada correctamente.");
+        } else {
+            System.out.println("Error al generar la venta.");
+        }
+    }//GEN-LAST:event_jBttn_generateSaleActionPerformed
 
     private void jBttn_searchDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttn_searchDniActionPerformed
         // TODO add your handling code here:
@@ -445,35 +504,41 @@ public class SalesMain extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBttn_searchCodActionPerformed
 
     private void jBttn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttn_addActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBttn_addActionPerformed
+    // TODO add your handling code here:
+    /*int quantity = (int) quantitySpinner.getValue();
+    subTotal = priceU * quantity;
+    priceTotal += subTotal;
+    jLabel_viewPriceTotal.setText("$" + priceTotal);
 
-    private void quantitySpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_quantitySpinnerStateChanged
-        // TODO add your handling code here:
-        updateTotalPrice();
-    }//GEN-LAST:event_quantitySpinnerStateChanged
+        DtoSalesDetails saleDetail = new DtoSalesDetails();
+        saleDetail.setProductID(idProduct);
+        saleDetail.setQuantity(quantity);
+        saleDetail.setUnitPrice(priceU);
+        saleDetail.setTotalPrice(subTotal);
+
+        salesDetailsList.add(saleDetail);*/
+
+        addProductToTable(idProduct, codProduct, nameProduct, priceU);
+    }//GEN-LAST:event_jBttn_addActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField codProductTextField;
     private javax.swing.JButton jBttn_add;
+    private javax.swing.JButton jBttn_generateSale;
     private javax.swing.JButton jBttn_searchCod;
     private javax.swing.JButton jBttn_searchDni;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel_cod;
+    private javax.swing.JLabel jLabel_customer;
     private javax.swing.JLabel jLabel_date;
+    private javax.swing.JLabel jLabel_dni;
+    private javax.swing.JLabel jLabel_priceU;
+    private javax.swing.JLabel jLabel_product;
+    private javax.swing.JLabel jLabel_quantity;
+    private javax.swing.JLabel jLabel_stock;
+    private javax.swing.JLabel jLabel_title;
+    private javax.swing.JLabel jLabel_totalPrice;
     private javax.swing.JLabel jLabel_viewCustomer;
     private javax.swing.JLabel jLabel_viewPrice;
     private javax.swing.JLabel jLabel_viewPriceTotal;

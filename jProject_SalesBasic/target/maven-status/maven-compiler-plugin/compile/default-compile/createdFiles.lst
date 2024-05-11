@@ -102,6 +102,7 @@ Controller\SalesController.class
 Views\Maintenances\Product\TypesMotorCycle\DeleteTypes.class
 Views\Maintenances\Product\Brands\UpdateBrand$2.class
 Views\Maintenances\Product\Products\Products$4.class
+Controller\ServiceObject\Sales\SalesService.class
 Views\Maintenances\Product\TypesMotorCycle\TypesMotorCycle.class
 Entities\Brand.class
 Views\Maintenances\Product\TypesMotorCycle\UpdateTypes$4.class

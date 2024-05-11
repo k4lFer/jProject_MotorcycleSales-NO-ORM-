@@ -101,14 +101,12 @@ public class CustomerDelete extends java.awt.Dialog {
         int id = (ID);
         int result = controller.deleteCustomer(id);
         if(result > 0){
-            JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente.");
+            //JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente.");
             List<DtoCustomer> customers = controller.loadCustomers();
             form.updateTable(customers);
             dispose();
         }
-        else{
-             JOptionPane.showMessageDialog(null, "No se pudo eliminar el cliente.");
-        }
+        
         
     }
     private void jBttn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttn_deleteActionPerformed

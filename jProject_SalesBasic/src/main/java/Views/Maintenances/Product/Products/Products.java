@@ -353,7 +353,7 @@ public class Products extends javax.swing.JPanel {
             return;
         }
         int productID = rowToProductIdMap.get(selectedRow);
-        String name = (String) jTable_products.getValueAt(selectedRow, 2);
+        String name = (String) jTable_products.getValueAt(selectedRow, 3);
         
         Frame f = JOptionPane.getFrameForComponent(this);
         DeleteProduct deletedialog = new DeleteProduct(f, true, productController, this);

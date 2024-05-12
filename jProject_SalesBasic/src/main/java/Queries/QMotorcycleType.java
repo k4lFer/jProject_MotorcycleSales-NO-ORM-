@@ -55,9 +55,10 @@ public class QMotorcycleType implements RepoMotorcycleType {
 
     @Override
     public int update(DtoMotorcycleType dto) {
-       String query = "UPDATE MotorcycleTypes SET name = ?";
+       String query = "UPDATE MotorcycleTypes SET name = ? WHERE MotorcycleTypeID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)){
             stmt.setString(1, dto.getName());
+            stmt.setInt(2, dto.getMotorcycleTypeID());
             return stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

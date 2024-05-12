@@ -9,7 +9,6 @@ import DTOs.Objects.DtoMotorcycleType;
 import DTOs.Objects.DtoProducts;
 import Views.Maintenances.Product.Products.Functions.MappedComboBoxModel;
 import java.util.List;
-import javax.swing.JComboBox;
 
 /**
  *

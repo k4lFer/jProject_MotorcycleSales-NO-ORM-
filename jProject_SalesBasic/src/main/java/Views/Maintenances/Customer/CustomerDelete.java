@@ -97,7 +97,7 @@ public class CustomerDelete extends java.awt.Dialog {
         dispose();
     }//GEN-LAST:event_jBttn_closeActionPerformed
 
-    public void deleteCustomer(){
+    private void deleteCustomer(){
         int id = (ID);
         int result = controller.deleteCustomer(id);
         if(result > 0){
@@ -105,17 +105,14 @@ public class CustomerDelete extends java.awt.Dialog {
             List<DtoCustomer> customers = controller.loadCustomers();
             form.updateTable(customers);
             dispose();
-        }
-        
-        
+        }       
     }
     private void jBttn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttn_deleteActionPerformed
         // TODO add your handling code here:
         int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar a este cliente?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             deleteCustomer();
-        }
-        
+        }  
     }//GEN-LAST:event_jBttn_deleteActionPerformed
 
     /**

@@ -32,7 +32,7 @@ public class DeleteBrand extends java.awt.Dialog {
         ID = brandID;
     }
     
-    public void deleteBrand(){
+    private void deleteBrand(){
         int id = ID;
         int result = controller.deleteBrand(id);
         if(result > 0){

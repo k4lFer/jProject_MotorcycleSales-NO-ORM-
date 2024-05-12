@@ -1,11 +1,8 @@
 package Views.Maintenances.Product.Products;
 
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
 import Controller.ProductController;
-import DTOs.Objects.DtoBrand;
 import DTOs.Objects.DtoProducts;
 
 /**

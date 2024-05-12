@@ -6,7 +6,6 @@ import DTOs.Objects.DtoBrand;
 import java.awt.Frame;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -40,7 +39,7 @@ public class Brands extends javax.swing.JPanel {
         jTable_Brands.setModel(model);     
     }
     
-    public void insertBrand(){
+    private void insertBrand(){
         String name = brandTextField.getText();
         
         SoBrand newBrand = new SoBrand();

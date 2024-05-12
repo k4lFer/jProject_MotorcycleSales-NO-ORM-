@@ -14,14 +14,12 @@ D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\Sale
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ServiceObject\Generic\SoMessageObject.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Queries\QProducts.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Product\Products\UpdateProduct.java
-D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Entities\Products.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Product\Products\Products.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ServiceObject\TypesMotorCycle\TypesMotorCycleValidation.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\SalesDetailsController.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Product\TypesMotorCycle\TypesMotorCycle.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ServiceObject\Customers\SoCustomers.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\TypesMotorController.java
-D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Entities\Customers.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Queries\QSalesDetails.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Queries\QCustomer.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ServiceObject\Sales\SoSales.java
@@ -29,15 +27,12 @@ D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Repository\Obje
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Product\ProductsMain.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Sales\SalesMain.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Product\Brands\Brands.java
-D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Entities\MotorcycleType.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\DTOs\Objects\DtoCustomer.java
-D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ServiceObject\Sales\SalesService.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ProductController.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ServiceObject\TypesMotorCycle\SoTypesMotorCycle.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Connection\ConnectionContext.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Queries\QMotorcycleType.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Repository\RepoGeneric.java
-D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Entities\Sales.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\DTOs\Objects\DtoSalesDetails.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Customer\CustomersMain.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Customer\CustomerDelete.java
@@ -46,7 +41,6 @@ D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\Serv
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Main.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Product\TypesMotorCycle\DeleteTypes.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Product\TypesMotorCycle\UpdateTypes.java
-D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Entities\SalesDetails.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Views\Maintenances\Customer\CustomerUpdate.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\DTOs\Objects\DtoProducts.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\ServiceObject\Products\SoProducts.java
@@ -58,4 +52,3 @@ D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Repository\Obje
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Queries\QBrand.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\DTOs\Other\DtoMessageObject.java
 D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Controller\BrandController.java
-D:\Escritorio\NetBeansProjects\jProject_SalesBasic\src\main\java\Entities\Brand.java

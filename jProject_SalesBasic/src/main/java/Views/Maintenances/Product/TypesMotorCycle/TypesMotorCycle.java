@@ -1,13 +1,10 @@
 package Views.Maintenances.Product.TypesMotorCycle;
 
 import java.awt.Frame;
-import java.awt.JobAttributes;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 import Controller.TypesMotorController;
 import Controller.ServiceObject.TypesMotorCycle.SoTypesMotorCycle;
 import DTOs.Objects.DtoMotorcycleType;
@@ -17,6 +14,7 @@ import DTOs.Objects.DtoMotorcycleType;
  * @author kalfe
  */
 public class TypesMotorCycle extends javax.swing.JPanel {
+    private SoTypesMotorCycle newType = new SoTypesMotorCycle();
     private TypesMotorController controller;
     private HashMap<Integer, Integer> rowToTypeIdMap = new HashMap();
  
@@ -41,11 +39,11 @@ public class TypesMotorCycle extends javax.swing.JPanel {
         jTable_TypesMotorCycle.setModel(model);
     }
 
-    public void insertTypes(){
+    private void insertTypes(){
         String name = typesMotorCycleTextField.getText();
 
-        SoTypesMotorCycle newType = new SoTypesMotorCycle();
-            newType.dtoType.setName(name);
+        //SoTypesMotorCycle newType = new SoTypesMotorCycle();
+        newType.dtoType.setName(name);
         int result = controller.insertTypes(newType);
         if(result == 1){
             typesMotorCycleTextField.setText("");

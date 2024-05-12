@@ -39,7 +39,7 @@ public class SalesDetailsController {
     int stockBase = soProducts.dtoProducts.getStockQuantity();
     int updatedStock = stockBase-stockSale;
     soProducts.dtoProducts.setStockQuantity(updatedStock);
-    int resultProduct = modelP.update(soProducts.dtoProducts);
+    modelP.update(soProducts.dtoProducts);
     
     
     

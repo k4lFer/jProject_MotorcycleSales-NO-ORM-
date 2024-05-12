@@ -34,12 +34,12 @@ public class UpdateTypes extends java.awt.Dialog {
         ID = typeID;
     }
 
-    public void updateType(){
+    private void updateType(){
         String name = jTextField_type.getText();
         String currentName = "";
         SoTypesMotorCycle typeToUpdate = new SoTypesMotorCycle();
-        typeToUpdate.dtoType.setMotorcycleTypeID(ID);
         typeToUpdate.dtoType.setName(name);
+        typeToUpdate.dtoType.setMotorcycleTypeID(ID);
 
         int result = controller.updateTypes(typeToUpdate, this.currentName);
         if(result > 0){

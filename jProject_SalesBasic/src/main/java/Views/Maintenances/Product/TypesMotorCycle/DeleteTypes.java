@@ -34,7 +34,7 @@ public class DeleteTypes extends java.awt.Dialog {
         ID = typeID;
     }
 
-    public void deleteType(){
+    private void deleteType(){
         int id = ID;
         int result = controller.deleteTypes(id);
         if(result > 0){

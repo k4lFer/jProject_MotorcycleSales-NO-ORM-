@@ -33,7 +33,7 @@ public class UpdateBrand extends java.awt.Dialog {
         id = brandID;
     }
     
-    public void updateBrand(){
+    private void updateBrand(){
        String name = jTextField_nameBrand.getText();
        String currentName = "";
        SoBrand brandToUpdate = new SoBrand();

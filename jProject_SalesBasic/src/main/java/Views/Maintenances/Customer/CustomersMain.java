@@ -38,20 +38,13 @@ public class CustomersMain extends javax.swing.JInternalFrame {
             row[2] = customer.getAddress();
             row[3] = customer.getPhone();
             model.addRow(row);
-           
+        
             rowToCustomerIdMap.put(model.getRowCount() - 1, customer.getCustomerID());
         }
         jTable_Customers.setModel(model);
-    
     }
 
-    public void insertCustomer(){
-       /* if (dniTextField.getText().isEmpty() || firstNameTextField.getText().isEmpty() ||
-            lastNameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() ||
-            phoneTextField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Todos los campos deben estar llenos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; 
-        } */     
+    private void insertCustomer(){   
         String dni = dniTextField.getText();
         String firstName = firstNameTextField.getText();
         String lastName = lastNameTextField.getText();
@@ -74,7 +67,6 @@ public class CustomersMain extends javax.swing.JInternalFrame {
             List<DtoCustomer> customers = controller.loadCustomers();
             updateTable(customers);
         }
-        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

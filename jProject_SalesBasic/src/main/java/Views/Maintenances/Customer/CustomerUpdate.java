@@ -4,7 +4,6 @@ import Controller.CustomerController;
 import Controller.ServiceObject.Customers.SoCustomers;
 import DTOs.Objects.DtoCustomer;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,14 +37,8 @@ public class CustomerUpdate extends java.awt.Dialog {
         jTextField_phone.setText(phone);
         ID = customerID;
     }
-    public void updateCustomer(){
-        /*if (jTextField_dni.getText().isEmpty() || jTextField_firstName.getText().isEmpty() ||
-            jTextField_lastName.getText().isEmpty() || jTextField_Address.getText().isEmpty() ||
-            jTextField_phone.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Todos los campos deben estar llenos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; 
-        } */
-        
+    
+    private void updateCustomer(){ 
         String dni = jTextField_dni.getText();
         String firstName = jTextField_firstName.getText();
         String lastName = jTextField_lastName.getText();

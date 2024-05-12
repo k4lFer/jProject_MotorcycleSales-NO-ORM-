@@ -34,6 +34,8 @@ public class SalesMain extends javax.swing.JInternalFrame {
     private SalesController salesController;
     private SalesDetailsController salesDetailsController;
     private SoSales currentSale = new SoSales();
+    private SoCustomers customer = new SoCustomers();
+    private SoProducts product = new SoProducts();
     private SoSalesDetails soDetail = new SoSalesDetails();
     private List<DtoSalesDetails> salesDetailsList = new ArrayList<>();
 
@@ -85,7 +87,7 @@ public class SalesMain extends javax.swing.JInternalFrame {
     }
     
     protected void getCustomer(){
-        SoCustomers customer = new SoCustomers();
+        //SoCustomers customer = new SoCustomers();
         String nDni = numberDniTextField.getText();
         customer.dtoCustomer = customerController.getCustomerByDni(nDni);
         if(customer.dtoCustomer != null){
@@ -100,7 +102,7 @@ public class SalesMain extends javax.swing.JInternalFrame {
     }
 
     protected void getProduct(){
-        SoProducts product = new SoProducts();
+        //SoProducts product = new SoProducts();
         String nCode = codProductTextField.getText();
         product.dtoProducts = productController.getProductByCod(nCode);
         
@@ -484,7 +486,6 @@ public class SalesMain extends javax.swing.JInternalFrame {
 
     private void jBttn_generateSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttn_generateSaleActionPerformed
     int ventaID = insertSale();
-
         if (ventaID > 0) {
             insertSaleDetail(ventaID);
             System.out.println("Venta generada correctamente.");
@@ -505,19 +506,6 @@ public class SalesMain extends javax.swing.JInternalFrame {
 
     private void jBttn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttn_addActionPerformed
     // TODO add your handling code here:
-    /*int quantity = (int) quantitySpinner.getValue();
-    subTotal = priceU * quantity;
-    priceTotal += subTotal;
-    jLabel_viewPriceTotal.setText("$" + priceTotal);
-
-        DtoSalesDetails saleDetail = new DtoSalesDetails();
-        saleDetail.setProductID(idProduct);
-        saleDetail.setQuantity(quantity);
-        saleDetail.setUnitPrice(priceU);
-        saleDetail.setTotalPrice(subTotal);
-
-        salesDetailsList.add(saleDetail);*/
-
         addProductToTable(idProduct, codProduct, nameProduct, priceU);
     }//GEN-LAST:event_jBttn_addActionPerformed
 
